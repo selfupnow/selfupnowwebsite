@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101010" />
+  <meta name="description" content="SelfUpNow helps fitness coaches, personal trainers, and fitness influencers grow through strategic content, brand positioning, and client acquisition systems." />
+  <title>SelfUpNow — Content. Brand. Acquisition.</title>
+  <style>
+    :root {
+      --bg: #101010;
+      --surface: #171717;
+      --surface-2: #1d1b22;
+      --text: #f5f5f0;
+      --muted: #aaa7b1;
+      --purple: #8b5cf6;
+      --purple-light: #a78bfa;
+      --border: rgba(245,245,240,.12);
+      --max: 1160px;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+    .announcement {
+      text-align: center; padding: 9px 16px; font-size: 11px; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border);
+    }
+    .announcement span { color: var(--purple-light); }
+    header {
+      position: sticky; top: 0; z-index: 20; background: rgba(16,16,16,.86);
+      backdrop-filter: blur(16px); border-bottom: 1px solid var(--border);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font-size: 18px; letter-spacing: -.06em; font-weight: 800; white-space: nowrap; }
+    .brand span { color: var(--purple-light); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: #c7c4ce; font-size: 13px; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta { padding: 11px 16px !important; border: 1px solid rgba(139,92,246,.65); border-radius: 999px; color: var(--text) !important; }
+    .nav-cta:hover { background: var(--purple); border-color: var(--purple); }
+    .menu-toggle { display: none; border: 1px solid var(--border); background: transparent; color: var(--text); padding: 9px 12px; border-radius: 10px; cursor: pointer; }
+    main { min-height: 60vh; }
+    .hero { padding: 112px 0 92px; position: relative; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; width: 460px; height: 460px; border-radius: 50%;
+      background: rgba(139,92,246,.13); filter: blur(110px); top: -170px; right: -120px; pointer-events: none;
+    }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--purple-light); font-size: 11px; text-transform: uppercase; letter-spacing: .18em; font-weight: 700; }
+    .eyebrow::before { content: ""; width: 24px; height: 1px; background: currentColor; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 850px; font-size: clamp(46px, 7.5vw, 88px); line-height: .99; letter-spacing: -.075em; margin: 25px 0 26px; font-weight: 650; }
+    h1 .accent, .accent { color: var(--purple-light); }
+    .hero-copy { color: var(--muted); max-width: 590px; font-size: 17px; line-height: 1.8; margin-bottom: 32px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 19px; border-radius: 999px; border: 1px solid transparent; font-size: 13px; font-weight: 650; cursor: pointer; transition: transform .2s, background .2s, border-color .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--purple); color: white; }
+    .btn-primary:hover { background: #7945ed; }
+    .btn-secondary { border-color: var(--border); color: var(--text); background: rgba(255,255,255,.015); }
+    .btn-secondary:hover { border-color: rgba(167,139,250,.7); }
+    .arrow { font-size: 17px; line-height: 1; }
+    .hero-bottom { display: flex; justify-content: space-between; align-items: end; gap: 28px; border-top: 1px solid var(--border); margin-top: 86px; padding-top: 22px; }
+    .hero-bottom p { color: var(--muted); margin: 0; font-size: 12px; }
+    .hero-bottom strong { display: block; color: var(--text); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+    section { padding: 88px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 38px; }
+    .section-head h2 { font-size: clamp(30px, 4.2vw, 48px); letter-spacing: -.06em; line-height: 1.08; max-width: 600px; margin: 13px 0 0; font-weight: 620; }
+    .section-head p { color: var(--muted); max-width: 390px; font-size: 14px; margin: 0; }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .service-card { padding: 28px; min-height: 235px; background: var(--surface); border-right: 1px solid var(--border); }
+    .service-card:last-child { border-right: 0; }
+    .card-number { color: var(--purple-light); font-size: 11px; letter-spacing: .12em; }
+    .service-card h3 { margin: 35px 0 12px; font-size: 20px; letter-spacing: -.04em; }
+    .service-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .audience { background: #141316; border-block: 1px solid var(--border); }
+    .audience-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .audience-item { padding: 24px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,.015); }
+    .audience-item h3 { font-size: 17px; letter-spacing: -.03em; margin: 0 0 8px; }
+    .audience-item p { color: var(--muted); font-size: 13px; margin: 0; }
+    .process-list { border-top: 1px solid var(--border); }
+    .process-step { display: grid; grid-template-columns: 70px 1fr 1.2fr; align-items: start; gap: 22px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+    .step-num { color: var(--purple-light); font-size: 12px; padding-top: 5px; }
+    .process-step h3 { font-size: 19px; letter-spacing: -.035em; margin: 0; }
+    .process-step p { color: var(--muted); font-size: 13px; margin: 0; max-width: 500px; }
+    .work-panel { display: flex; align-items: center; justify-content: space-between; gap: 36px; border: 1px solid rgba(139,92,246,.35); border-radius: 22px; padding: clamp(28px, 5vw, 54px); background: radial-gradient(ellipse at 90% 10%, rgba(139,92,246,.15), transparent 45%), var(--surface); }
+    .work-panel h2 { font-size: clamp(30px, 4.3vw, 48px); letter-spacing: -.06em; line-height: 1.08; margin: 12px 0; max-width: 570px; }
+    .work-panel p { color: var(--muted); font-size: 14px; max-width: 550px; margin-bottom: 0; }
+    .work-panel .actions { flex-shrink: 0; }
+    .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .package { display: flex; flex-direction: column; padding: 28px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); min-height: 380px; }
+    .package.featured { border-color: rgba(139,92,246,.75); background: linear-gradient(160deg, rgba(139,92,246,.10), transparent 55%), var(--surface); }
+    .package-tag { color: var(--purple-light); font-size: 11px; text-transform: uppercase; letter-spacing: .14em; }
+    .package h3 { font-size: 25px; letter-spacing: -.05em; margin: 18px 0 10px; }
+    .package > p { color: var(--muted); font-size: 13px; min-height: 42px; }
+    .package ul { list-style: none; padding: 18px 0 24px; margin: 0 0 22px; border-top: 1px solid var(--border); }
+    .package li { color: #d5d2dc; font-size: 13px; padding: 6px 0; }
+    .package li::before { content: "↗"; color: var(--purple-light); margin-right: 9px; }
+    .package .btn { margin-top: auto; }
+    .note { color: var(--muted); font-size: 12px; margin-top: 18px; }
+    .cta-section { padding: 70px 0 100px; }
+    .cta-box { text-align: center; padding: 72px 24px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .cta-box h2 { font-size: clamp(34px, 5.4vw, 60px); line-height: 1.05; letter-spacing: -.065em; max-width: 750px; margin: 18px auto; }
+    .cta-box p { color: var(--muted); max-width: 480px; margin: 0 auto 26px; font-size: 14px; }
+    footer { border-top: 1px solid var(--border); padding: 28px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .footer-tagline { color: var(--muted); font-size: 11px; margin: 7px 0 0; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a, .copyright { color: var(--muted); font-size: 11px; }
+    .footer-links a:hover { color: var(--purple-light); }
+    .copyright { margin: 0; text-align: right; }
+    /* Inner pages */
+    .page-hero { padding: 90px 0 58px; border-bottom: 1px solid var(--border); }
+    .page-hero h1 { font-size: clamp(42px, 6.5vw, 72px); max-width: 850px; margin: 18px 0; }
+    .page-hero p { max-width: 650px; color: var(--muted); font-size: 16px; }
+    .page-content { padding: 58px 0 100px; }
+    .detail-list { border-top: 1px solid var(--border); }
+    .detail-row { display: grid; grid-template-columns: 1fr 1.3fr; gap: 35px; padding: 30px 0; border-bottom: 1px solid var(--border); }
+    .detail-row h2 { font-size: 24px; letter-spacing: -.045em; margin: 0; }
+    .detail-row p { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+    .detail-row ul { color: #d5d2dc; font-size: 13px; margin: 0; padding-left: 18px; }
+    .detail-row li { margin: 7px 0; }
+    .form-wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: start; }
+    .form-intro h2 { font-size: 32px; letter-spacing: -.05em; line-height: 1.1; margin: 15px 0; }
+    .form-intro p { color: var(--muted); font-size: 14px; }
+    form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field.full { grid-column: 1 / -1; }
+    label { font-size: 12px; color: #dedbe5; }
+    input, select, textarea {
+      width: 100%; border: 1px solid var(--border); border-radius: 10px; padding: 13px 14px;
+      background: #171619; color: var(--text); outline: none; transition: border-color .2s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--purple); }
+    textarea { min-height: 110px; resize: vertical; }
+    input::placeholder, textarea::placeholder { color: #77737e; }
+    .form-submit { grid-column: 1 / -1; display: flex; align-items: center; flex-wrap: wrap; gap: 15px; }
+    .form-help { color: var(--muted); font-size: 11px; }
+    .status { grid-column: 1 / -1; color: var(--purple-light); font-size: 13px; }
+    .pdf-card { border: 1px solid var(--border); border-radius: 18px; background: var(--surface); padding: 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .pdf-card h2 { margin: 0 0 8px; font-size: 24px; letter-spacing: -.04em; }
+    .pdf-card p { color: var(--muted); font-size: 13px; margin: 0; }
+    .pdf-icon { width: 58px; height: 70px; border: 1px solid rgba(167,139,250,.5); border-radius: 8px; display: grid; place-items: center; color: var(--purple-light); font-weight: 800; font-size: 12px; flex-shrink: 0; }
+    .empty-note { color: var(--muted); font-size: 12px; margin-top: 16px; }
+    .hidden { display: none !important; }
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
+    @media (max-width: 850px) {
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 12px; }
+      .service-grid, .packages-grid { grid-template-columns: 1fr; }
+      .service-card { min-height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
+      .service-card:last-child { border-bottom: 0; }
+      .package { min-height: auto; }
+      .work-panel { align-items: flex-start; flex-direction: column; }
+      .form-wrap { grid-template-columns: 1fr; gap: 32px; }
+    }
+    @media (max-width: 650px) {
+      .container { width: min(100% - 32px, var(--max)); }
+      .nav { min-height: 66px; }
+      .menu-toggle { display: inline-flex; }
+      .nav-links {
+        display: none; position: absolute; top: 65px; left: 0; right: 0; padding: 18px 20px 22px;
+        flex-direction: column; align-items: stretch; gap: 0; background: #131214; border-bottom: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px 4px; font-size: 14px; }
+      .nav-cta { text-align: center; margin-top: 8px; }
+      .hero { padding: 80px 0 58px; }
+      .hero-copy { font-size: 15px; }
+      .hero-bottom { margin-top: 58px; align-items: flex-start; flex-direction: column; gap: 18px; }
+      section { padding: 64px 0; }
+      .section-head { align-items: flex-start; flex-direction: column; gap: 14px; }
+      .audience-list { grid-template-columns: 1fr; }
+      .process-step { grid-template-columns: 32px 1fr; gap: 12px; }
+      .process-step p { grid-column: 2; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .copyright { text-align: left; }
+      .page-hero { padding: 65px 0 42px; }
+      .detail-row { grid-template-columns: 1fr; gap: 14px; }
+      form { grid-template-columns: 1fr; }
+      .field.full, .form-submit, .status { grid-column: auto; }
+      .pdf-card { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">A strategic growth partner for the <span>fitness industry</span></div>
+  <header>
+    <div class="container nav">
+      <a href="#home" class="brand" aria-label="SelfUpNow home">SELFUP<span>NOW</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#services" data-nav="services">Services</a>
+        <a href="#process" data-nav="process">Process</a>
+        <a href="#packages" data-nav="packages">Packages</a>
+        <a href="#our-work" data-nav="our-work">Our Work</a>
+        <a href="#work-with-us" class="nav-cta" data-nav="work-with-us">Work With Us <span class="arrow">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <div id="home" class="route">
+      <section class="hero">
+        <div class="container">
+          <div class="eyebrow">Content. Brand. Acquisition.</div>
+          <h1>Turn your content into <span class="accent">client acquisition.</span></h1>
+          <p class="hero-copy">We help fitness coaches, personal trainers, and fitness influencers grow their online presence through strategic content, clear positioning, and lead-generation systems.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#work-with-us">Work With Us <span class="arrow">↗</span></a>
+            <a class="btn btn-secondary" href="#our-work">Explore Our Work <span class="arrow">↗</span></a>
+          </div>
+          <div class="hero-bottom">
+            <p><strong>Built around your goal</strong>Reach, inquiries, or a clearer offer.</p>
+            <p><strong>Strategy before output</strong>Research-led decisions, not random posting.</p>
+            <p><strong>Made for fitness</strong>Coaches, trainers, and creators.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="services">
+        <div class="container">
+          <div class="section-head reveal">
+            <div><div class="eyebrow">What we do</div><h2>More than content.<br><span class="accent">A strategy for growth.</span></h2></div>
+            <p>Every activity has a purpose: clarify your brand, publish content with direction, and make it easier for the right people to take the next step.</p>
+          </div>
+          <div class="service-grid reveal">
+            <article class="service-card"><div class="card-number">01 / STRATEGY</div><h3>Content Strategy & Production</h3><p>Research-backed content planning, Reel concepts, scripts, editing, carousels, and captions built around your audience and goals.</p></article>
+            <article class="service-card"><div class="card-number">02 / POSITIONING</div><h3>Brand Positioning</h3><p>Profile audits, clear messaging, offer positioning, and practical recommendations that help people understand why they should follow or work with you.</p></article>
+            <article class="service-card"><div class="card-number">03 / ACQUISITION</div><h3>Lead Generation & Optimization</h3><p>Content-to-inquiry pathways, calls to action, lead tracking workflows, performance reviews, and ongoing improvements.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="audience">
+        <div class="container">
+          <div class="section-head reveal">
+            <div><div class="eyebrow">Who we help</div><h2>Made for people building in <span class="accent">fitness.</span></h2></div>
+            <p>We shape the strategy around your business model, audience, and the result you want your content to support.</p>
+          </div>
+          <div class="audience-list reveal">
+            <article class="audience-item"><h3>Online Fitness Coaches</h3><p>Build authority, communicate your coaching offer, and create a clearer path from content to inquiry.</p></article>
+            <article class="audience-item"><h3>Personal Trainers</h3><p>Showcase your expertise and make your local or online training services easier to discover.</p></article>
+            <article class="audience-item"><h3>Fitness Influencers</h3><p>Strengthen your creator brand, build content consistency, and create opportunities to monetize your audience.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="process">
+        <div class="container">
+          <div class="section-head reveal">
+            <div><div class="eyebrow">Our approach</div><h2>A clear process.<br><span class="accent">No random posting.</span></h2></div>
+            <p>We start by understanding what success means to you, then build and improve a system around that goal.</p>
+          </div>
+          <div class="process-list reveal">
+            <div class="process-step"><div class="step-num">01</div><h3>Audit</h3><p>Review your profile, current content, offer, audience, and existing conversion path.</p></div>
+            <div class="process-step"><div class="step-num">02</div><h3>Research</h3><p>Study your niche, competitors, audience questions, and content patterns worth learning from.</p></div>
+            <div class="process-step"><div class="step-num">03</div><h3>Strategy</h3><p>Set your positioning, content pillars, publishing plan, and calls to action around your primary goal.</p></div>
+            <div class="process-step"><div class="step-num">04</div><h3>Execution</h3><p>Create and organize the agreed content and lead-generation assets for consistent implementation.</p></div>
+            <div class="process-step"><div class="step-num">05</div><h3>Optimize</h3><p>Review available performance data, identify what to improve, and refine the next cycle.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="our-work">
+        <div class="container">
+          <div class="work-panel reveal">
+            <div><div class="eyebrow">Explore our work</div><h2>See how we think.<br><span class="accent">Explore our approach.</span></h2><p>Our portfolio explains how we approach research, positioning, content strategy, and acquisition systems. Any independent account analysis or sample work is clearly identified as illustrative—not client work.</p></div>
+            <div class="actions"><a class="btn btn-primary" href="portfolio.pdf" target="_blank" rel="noopener">Explore Our Work <span class="arrow">↗</span></a></div>
+          </div>
+          <p class="empty-note">Before publishing, add your portfolio PDF as <strong>portfolio.pdf</strong> in the same folder as this website, or update the button link to your hosted PDF URL.</p>
+        </div>
+      </section>
+
+      <section id="packages">
+        <div class="container">
+          <div class="section-head reveal">
+            <div><div class="eyebrow">Packages</div><h2>Choose the support that fits <span class="accent">your next stage.</span></h2></div>
+            <p>We confirm the scope after understanding your goals, current content, and required level of support.</p>
+          </div>
+          <div class="packages-grid reveal">
+            <article class="package">
+              <div class="package-tag">01 / Start with clarity</div><h3>Foundation</h3><p>For brands that need a clear direction before scaling content.</p>
+              <ul><li>Profile and content audit</li><li>Niche and competitor research</li><li>Brand and offer positioning</li><li>Content pillars and strategy</li></ul>
+              <a class="btn btn-secondary" href="#work-with-us" data-package="Foundation">Discuss Foundation <span class="arrow">↗</span></a>
+            </article>
+            <article class="package featured">
+              <div class="package-tag">02 / Build consistency</div><h3>Growth</h3><p>For brands ready to execute a consistent content strategy.</p>
+              <ul><li>Everything in Foundation, as agreed</li><li>Monthly content plan</li><li>Reel concepts, scripts, and editing</li><li>Carousel and caption production</li><li>Performance review</li></ul>
+              <a class="btn btn-primary" href="#work-with-us" data-package="Growth">Discuss Growth <span class="arrow">↗</span></a>
+            </article>
+            <article class="package">
+              <div class="package-tag">03 / Build the pathway</div><h3>Acquisition</h3><p>For brands that want content connected to a structured inquiry process.</p>
+              <ul><li>Content and positioning strategy</li><li>Content production scope</li><li>CTA and conversion pathway planning</li><li>Lead tracking workflow</li><li>Review and optimization</li></ul>
+              <a class="btn btn-secondary" href="#work-with-us" data-package="Acquisition">Discuss Acquisition <span class="arrow">↗</span></a>
+            </article>
+          </div>
+          <p class="note">Pricing and exact deliverables are confirmed in your proposal. We do not promise guaranteed reach, leads, or sales. Outbound prospecting, appointment setting, paid ads, and sales closing are not included unless explicitly agreed.</p>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="container">
+          <div class="cta-box reveal">
+            <div class="eyebrow">Start a conversation</div>
+            <h2>Ready to build your next stage of <span class="accent">growth?</span></h2>
+            <p>Tell us what you want to achieve. We’ll use that context to understand whether SelfUpNow is the right fit.</p>
+            <a class="btn btn-primary" href="#work-with-us">Work With Us <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SERVICES PAGE -->
+    <div id="services-page" class="route hidden">
+      <div class="page-hero"><div class="container"><div class="eyebrow">Services</div><h1>Everything should move your brand <span class="accent">forward.</span></h1><p>Focused support across content, positioning, and lead-generation workflows—built around the goals we agree on together.</p></div></div>
+      <section class="page-content"><div class="container detail-list">
+        <div class="detail-row"><h2>01. Content Strategy & Production</h2><div><p>Turn audience research into content with a clear job to do.</p><ul><li>Content and competitor research</li><li>Content pillars and monthly planning</li><li>Reel concepts, scripts, and editing</li><li>Carousel design and captions</li><li>Publishing plan and creative direction</li></ul></div></div>
+        <div class="detail-row"><h2>02. Brand Positioning</h2><div><p>Make your profile, message, and offer easier to understand.</p><ul><li>Instagram profile audit</li><li>Audience and niche positioning</li><li>Brand messaging and content angles</li><li>Coaching offer positioning</li><li>Profile optimization recommendations</li></ul></div></div>
+        <div class="detail-row"><h2>03. Lead Generation & Optimization</h2><div><p>Connect useful content to a clear next step for interested people.</p><ul><li>Content-to-inquiry strategy</li><li>Calls to action and conversion pathway planning</li><li>Lead tracking workflow recommendations</li><li>Performance review and optimization</li></ul></div></div>
+      </div></section>
+    </div>
+
+    <!-- PROCESS PAGE -->
+    <div id="process-page" class="route hidden">
+      <div class="page-hero"><div class="container"><div class="eyebrow">Our process</div><h1>Understand first.<br><span class="accent">Execute with direction.</span></h1><p>A straightforward workflow that makes the goal, scope, and next step clear at every stage.</p></div></div>
+      <section class="page-content"><div class="container process-list">
+        <div class="process-step"><div class="step-num">01</div><h3>Audit</h3><p>We review your profile, current content, offer, audience, and current route from discovery to inquiry.</p></div>
+        <div class="process-step"><div class="step-num">02</div><h3>Research</h3><p>We examine the niche, competitors, audience questions, and relevant content patterns.</p></div>
+        <div class="process-step"><div class="step-num">03</div><h3>Strategy</h3><p>We define the priorities, positioning, content pillars, formats, and calls to action.</p></div>
+        <div class="process-step"><div class="step-num">04</div><h3>Execution</h3><p>We produce the agreed assets and provide a practical system for implementation.</p></div>
+        <div class="process-step"><div class="step-num">05</div><h3>Optimization</h3><p>We use available performance data to improve future content and the conversion path.</p></div>
+      </div></section>
+    </div>
+
+    <!-- PACKAGES PAGE -->
+    <div id="packages-page" class="route hidden">
+      <div class="page-hero"><div class="container"><div class="eyebrow">Packages</div><h1>Pick your starting point.<br><span class="accent">Build from there.</span></h1><p>Packages are a starting framework. Final deliverables, timelines, and fees are confirmed after a short discovery conversation.</p></div></div>
+      <section class="page-content"><div class="container packages-grid">
+        <article class="package"><div class="package-tag">01 / Strategy</div><h3>Foundation</h3><p>Clarity before consistent execution.</p><ul><li>Profile and content audit</li><li>Niche and competitor research</li><li>Positioning recommendations</li><li>Content pillars and strategy</li></ul><a class="btn btn-secondary" href="#work-with-us" data-package="Foundation">Enquire <span class="arrow">↗</span></a></article>
+        <article class="package featured"><div class="package-tag">02 / Content</div><h3>Growth</h3><p>Strategic content on a consistent basis.</p><ul><li>Content planning</li><li>Reel concepts and scripts</li><li>Editing and carousel production</li><li>Captions and performance review</li></ul><a class="btn btn-primary" href="#work-with-us" data-package="Growth">Enquire <span class="arrow">↗</span></a></article>
+        <article class="package"><div class="package-tag">03 / System</div><h3>Acquisition</h3><p>Content connected to an inquiry pathway.</p><ul><li>Positioning and content strategy</li><li>Agreed content production</li><li>CTA and conversion planning</li><li>Lead tracking and optimization</li></ul><a class="btn btn-secondary" href="#work-with-us" data-package="Acquisition">Enquire <span class="arrow">↗</span></a></article>
+      </div><div class="container"><p class="note">No guaranteed results are implied. Client conversations and sales closing remain the client's responsibility unless a separate scope is agreed. Outbound prospecting, appointment setting, and paid ads are not included by default.</p></div></section>
+    </div>
+
+    <!-- PORTFOLIO PAGE -->
+    <div id="our-work-page" class="route hidden">
+      <div class="page-hero"><div class="container"><div class="eyebrow">Our work</div><h1>Our thinking, made <span class="accent">visible.</span></h1><p>Explore the SelfUpNow portfolio for our approach to audits, positioning, content strategy, and acquisition systems.</p></div></div>
+      <section class="page-content"><div class="container">
+        <div class="pdf-card"><div style="display:flex;gap:20px;align-items:center"><div class="pdf-icon">PDF</div><div><h2>SelfUpNow — Agency Portfolio</h2><p>Strategy, content, brand positioning, and acquisition systems.</p></div></div><a class="btn btn-primary" href="portfolio.pdf" target="_blank" rel="noopener">Open Portfolio <span class="arrow">↗</span></a></div>
+        <p class="empty-note">Add <strong>portfolio.pdf</strong> beside this HTML file before publishing, or change the PDF links to your hosted PDF URL. Any sample work must be labelled as illustrative or independent analysis—not previous client work.</p>
+      </div></section>
+    </div>
+
+    <!-- APPLICATION PAGE -->
+    <div id="work-with-us-page" class="route hidden">
+      <div class="page-hero"><div class="container"><div class="eyebrow">Work with us</div><h1>Let’s talk about <span class="accent">your goals.</span></h1><p>Share a little about your brand and what you want to improve. We’ll review your details and discuss the most suitable next step.</p></div></div>
+      <section class="page-content"><div class="container form-wrap">
+        <div class="form-intro"><div class="eyebrow">Your application</div><h2>Clear goals make for a better starting point.</h2><p>Tell us where you are now, what you want to achieve, and what is currently getting in the way.</p><p class="note">This form opens your default email app with a pre-filled message. Connect it to a form service or backend before launch if you want online submissions without an email app.</p></div>
+        <form id="applicationForm">
+          <div class="field"><label for="name">Your name *</label><input id="name" name="name" required placeholder="Full name" /></div>
+          <div class="field"><label for="email">Email address *</label><input id="email" name="email" type="email" required placeholder="you@example.com" /></div>
+          <div class="field"><label for="instagram">Instagram profile</label><input id="instagram" name="instagram" placeholder="@yourhandle or profile URL" /></div>
+          <div class="field"><label for="businessType">I am a… *</label><select id="businessType" name="businessType" required><option value="">Choose one</option><option>Online fitness coach</option><option>Personal trainer</option><option>Fitness influencer</option><option>Other fitness business</option></select></div>
+          <div class="field"><label for="goal">Main goal *</label><select id="goal" name="goal" required><option value="">Choose your main goal</option><option>Increase reach and visibility</option><option>Improve content consistency</option><option>Generate more inquiries</option><option>Position my coaching offer</option><option>Monetize my creator brand</option><option>Other</option></select></div>
+          <div class="field"><label for="package">Package of interest</label><select id="package" name="package"><option value="">Not sure yet</option><option>Foundation</option><option>Growth</option><option>Acquisition</option></select></div>
+          <div class="field full"><label for="challenge">What is your biggest challenge? *</label><textarea id="challenge" name="challenge" required placeholder="Tell us what you're trying to improve…"></textarea></div>
+          <div class="field full"><label for="budget">Monthly budget (optional)</label><select id="budget" name="budget"><option value="">Prefer to discuss</option><option>Under ₹10,000</option><option>₹10,000–₹25,000</option><option>₹25,000–₹50,000</option><option>₹50,000+</option></select></div>
+          <div class="form-submit"><button class="btn btn-primary" type="submit">Prepare Application <span class="arrow">↗</span></button><span class="form-help">Your email app will open with the details filled in.</span></div>
+          <p id="formStatus" class="status hidden" role="status"></p>
+        </form>
+      </div></section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div><a href="#home" class="brand">SELFUP<span>NOW</span></a><p class="footer-tagline">Content. Brand. Acquisition.</p></div>
+      <div class="footer-links"><a href="#services">Services</a><a href="#process">Process</a><a href="#packages">Packages</a><a href="#our-work">Explore Our Work</a><a href="#work-with-us">Work With Us</a></div>
+      <p class="copyright">© <span id="year"></span> SelfUpNow</p>
+    </div>
+  </footer>
+
+  <script>
+    // Replace this with your real business email before publishing.
+    const AGENCY_EMAIL = "selfupnow@gmail.com";
+
+    const routeMap = {
+      home: "home",
+      services: "services-page",
+      process: "process-page",
+      packages: "packages-page",
+      "our-work": "our-work-page",
+      "work-with-us": "work-with-us-page"
+    };
+
+    function showRoute() {
+      const key = (location.hash || "#home").slice(1).split("?")[0];
+      const route = routeMap[key] || "home";
+      document.querySelectorAll(".route").forEach(el => el.classList.toggle("hidden", el.id !== route));
+      document.querySelectorAll("[data-nav]").forEach(el => el.classList.toggle("active", el.dataset.nav === key));
+      document.getElementById("navLinks").classList.remove("open");
+      document.getElementById("menuToggle").setAttribute("aria-expanded", "false");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (route === "home") {
+        // Home sections remain available as anchor targets.
+        setTimeout(() => {
+          const hash = location.hash.slice(1);
+          if (["services", "process", "packages", "our-work"].includes(hash)) {
+            document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 50);
+      }
+    }
+
+    // Route links to homepage sections use the section directly if already home,
+    // otherwise the route view changes to the appropriate standalone page.
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener("click", event => {
+        const target = link.getAttribute("href").slice(1);
+        const onHome = document.getElementById(target);
+        const isHomeSection = ["services", "process", "packages", "our-work"].includes(target);
+        const current = (location.hash || "#home").slice(1);
+        if (isHomeSection && current === "home" && onHome) {
+          event.preventDefault();
+          onHome.scrollIntoView({ behavior: "smooth" });
+          history.replaceState(null, "", "#" + target);
+        } else if (isHomeSection && current !== "home") {
+          // Dedicated page route is used when navigating from another page.
+          event.preventDefault();
+          location.hash = target;
+          showDedicated(target);
+        }
+      });
+    });
+
+    function showDedicated(target) {
+      const dedicated = routeMap[target] || "home";
+      document.querySelectorAll(".route").forEach(el => el.classList.toggle("hidden", el.id !== dedicated));
+      document.querySelectorAll("[data-nav]").forEach(el => el.classList.toggle("active", el.dataset.nav === target));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Use a clean mapping for navigation between the homepage and dedicated pages.
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener("click", event => {
+        const target = link.getAttribute("href").slice(1);
+        if (routeMap[target] && target !== "home") {
+          event.preventDefault();
+          history.pushState(null, "", "#" + target);
+          showDedicated(target);
+          document.getElementById("navLinks").classList.remove("open");
+          document.getElementById("menuToggle").setAttribute("aria-expanded", "false");
+        }
+      });
+    });
+
+    window.addEventListener("popstate", showRoute);
+    window.addEventListener("hashchange", () => {
+      const target = (location.hash || "#home").slice(1);
+      if (routeMap[target]) showRoute();
+      else if (["services", "process", "packages", "our-work"].includes(target)) {
+        document.querySelectorAll(".route").forEach(el => el.classList.toggle("hidden", el.id !== "home"));
+        setTimeout(() => document.getElementById(target)?.scrollIntoView({ behavior: "smooth" }), 20);
+      }
+    });
+
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      const nav = document.getElementById("navLinks");
+      const open = nav.classList.toggle("open");
+      document.getElementById("menuToggle").setAttribute("aria-expanded", String(open));
+    });
+
+    document.querySelectorAll("[data-package]").forEach(link => {
+      link.addEventListener("click", () => {
+        const select = document.getElementById("package");
+        if (select) select.value = link.dataset.package;
+      });
+    });
+
+    document.getElementById("applicationForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const subject = encodeURIComponent("SelfUpNow Application — " + form.get("name"));
+      const body = encodeURIComponent(
+        "New SelfUpNow application\n\n" +
+        "Name: " + form.get("name") + "\n" +
+        "Email: " + form.get("email") + "\n" +
+        "Instagram: " + (form.get("instagram") || "Not provided") + "\n" +
+        "Business type: " + form.get("businessType") + "\n" +
+        "Main goal: " + form.get("goal") + "\n" +
+        "Package: " + (form.get("package") || "Not sure yet") + "\n" +
+        "Biggest challenge: " + form.get("challenge") + "\n" +
+        "Monthly budget: " + (form.get("budget") || "Prefer to discuss")
+      );
+      document.getElementById("formStatus").textContent = "Your email app should open with the application details. Please send the email to complete your enquiry.";
+      document.getElementById("formStatus").classList.remove("hidden");
+      window.location.href = `mailto:${AGENCY_EMAIL}?subject=${subject}&body=${body}`;
+    });
+
+    // Subtle reveal animations; content remains visible if IntersectionObserver is unavailable.
+    const revealItems = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(el => observer.observe(el));
+    } else {
+      revealItems.forEach(el => el.classList.add("visible"));
+    }
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Ensure direct loads of a dedicated page work.
+    if (location.hash && routeMap[location.hash.slice(1)]) showRoute();
+    else document.querySelectorAll(".reveal").forEach(el => el.classList.add("visible"));
+  </script>
+</body>
+</html>
